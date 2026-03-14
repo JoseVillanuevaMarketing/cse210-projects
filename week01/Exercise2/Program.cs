@@ -4,61 +4,63 @@ class Program
 {
     static void Main(string[] args)
     {
-        Journal journal = new Journal();
-        PromptGenerator promptGenerator = new PromptGenerator();
+        Console.Write("Enter your grade percentage: ");
+        string input = Console.ReadLine();
+        int grade = int.Parse(input);
 
-        int choice = 0;
+        string letter = "";
+        string sign = "";
 
-        while (choice != 5)
+        if (grade >= 90)
         {
-            Console.WriteLine();
-            Console.WriteLine("Journal Menu");
-            Console.WriteLine("1. Write a new entry");
-            Console.WriteLine("2. Display journal");
-            Console.WriteLine("3. Save journal to file");
-            Console.WriteLine("4. Load journal from file");
-            Console.WriteLine("5. Quit");
-            Console.Write("Choose an option: ");
+            letter = "A";
+        }
+        else if (grade >= 80)
+        {
+            letter = "B";
+        }
+        else if (grade >= 70)
+        {
+            letter = "C";
+        }
+        else if (grade >= 60)
+        {
+            letter = "D";
+        }
+        else
+        {
+            letter = "F";
+        }
 
-            choice = int.Parse(Console.ReadLine());
-
-            if (choice == 1)
+        int lastDigit = grade % 10;
+        if (letter != "F" && letter != "A")
+        {
+            if (lastDigit >= 7)
             {
-                string prompt = promptGenerator.GetRandomPrompt();
-
-                Console.WriteLine();
-                Console.WriteLine(prompt);
-                Console.Write("> ");
-
-                string response = Console.ReadLine();
-
-                Entry entry = new Entry();
-                entry._date = DateTime.Now.ToShortDateString();
-                entry._promptText = prompt;
-                entry._entryText = response;
-
-                journal.AddEntry(entry);
+                sign = "+";
             }
-
-            else if (choice == 2)
+            else if (lastDigit < 3)
             {
-                Console.WriteLine();
-                journal.DisplayAll();
+                sign = "-";
             }
-
-            else if (choice == 3)
+        }
+        else if (letter == "A")
+        {
+            if (lastDigit < 3)
             {
-                Console.Write("Enter filename to save: ");
-                string filename = Console.ReadLine();
-                journal.SaveToFile(filename);
+                sign = "-";
             }
-
-            else if (choice == 4)
-            {
-                Console.Write("Enter filename to load: ");
-                string filename = Console.ReadLine();
-                journal.LoadFromFile(filename);
-            }
+        }
+        
+        Console.WriteLine($"Your grade is: {letter}{sign}");
+        
+        if (grade >= 70)
+        {
+            Console.WriteLine("Congratulations! You passed the course!");
+        }
+        else
+        {
+            Console.WriteLine("Keep working hard, you can do better next time!");
         }
     }
 }
