@@ -1,3 +1,4 @@
+// Added spinner animations, countdown timers, and improved user experience with dynamic prompts.
 using System;
 
 class Program
