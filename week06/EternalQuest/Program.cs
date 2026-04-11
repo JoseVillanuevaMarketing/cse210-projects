@@ -1,3 +1,4 @@
+// Added score system with persistence and checklist bonus rewards system.
 using System;
 
 class Program
